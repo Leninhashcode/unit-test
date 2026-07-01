@@ -2,39 +2,39 @@ pipeline {
     agent any
 
     stages {
+      stage ("clone"){
+        steps {
+            "git 'https://github.com/Leninhashcode/unit-test'"
 
-
-        stage('Setup') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'server-creds', usernameVariable: "myuser", passwordVariable: "mypassword")]) {
-
-                    sh '''
-                    echo ${myuser}
-                    echo ${mypassword}
-                    '''
-                }
-
-                sh "pip install -r requirements.txt"
-            
-            }
         }
-        stage('Test') {
-            steps {
-                sh "pytest"
-                
-            }
-        }    
-        stage('Deployment') {
-            input {
-                message "Do you want to proceed further?"
-                ok "Yes"
-            }
-            steps {
-                echo "Running Deployment"
-                
-            }
-        } 
-        
+      }
+      stage("check"){
+        steps {
+            sh "ls -ltr"
+        }
+      }
+      stage("requirements"){
+        steps{
+                sh '''
+                python3 -m pip install --upgrade pip
+                pip3 install -r requirements.txt
+                pip3 install pytest
+                '''
+
             
+        }
+      }
+      stage ("test"){
+        steps{
+            sh "pytest"
+        }
+      }
+      stage("last"){
+        steps{
+            echo "done"
+        }
+      }
+        
+        
     }
 }

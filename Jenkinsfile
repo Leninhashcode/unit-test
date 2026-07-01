@@ -4,7 +4,7 @@ pipeline {
     stages {
       stage ("clone"){
         steps {
-            "git https://github.com/Leninhashcode/unit-test"
+            git "https://github.com/Leninhashcode/unit-test"
 
         }
       }

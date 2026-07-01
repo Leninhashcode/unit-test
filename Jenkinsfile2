@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Debug') {
+            steps {
+                sh '''
+                echo "Checking files..."
+                pwd
+                ls -la
+                '''
+            }
+        }
+
+        stage('Done') {
+            steps {
+                echo "HTML project - no build needed"
+            }
+        }
+    }
+}
